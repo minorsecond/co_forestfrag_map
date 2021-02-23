@@ -50,6 +50,46 @@ const LC2006Source = new TileWMS({
     ratio: 1
 })
 
+const LC2008Source = new TileWMS({
+    url: 'https://geo.spatstats.com/geoserver/CO_LD_Map/wms',
+    params: {'LAYERS': 'CO_LD_Map:co_nlcd_land_cover_2008_pyr',
+        'TILED': true,
+        'VERSION': '1.1.1',
+    },
+    serverType: 'geoserver',
+    ratio: 1
+})
+
+const LC2011Source = new TileWMS({
+    url: 'https://geo.spatstats.com/geoserver/CO_LD_Map/wms',
+    params: {'LAYERS': 'CO_LD_Map:co_nlcd_land_cover_2011_pyr',
+        'TILED': true,
+        'VERSION': '1.1.1',
+    },
+    serverType: 'geoserver',
+    ratio: 1
+})
+
+const LC2013Source = new TileWMS({
+    url: 'https://geo.spatstats.com/geoserver/CO_LD_Map/wms',
+    params: {'LAYERS': 'CO_LD_Map:co_nlcd_land_cover_2013_pyr',
+        'TILED': true,
+        'VERSION': '1.1.1',
+    },
+    serverType: 'geoserver',
+    ratio: 1
+})
+
+const LC2016Source = new TileWMS({
+    url: 'https://geo.spatstats.com/geoserver/CO_LD_Map/wms',
+    params: {'LAYERS': 'CO_LD_Map:co_nlcd_land_cover_2016_pyr',
+        'TILED': true,
+        'VERSION': '1.1.1',
+    },
+    serverType: 'geoserver',
+    ratio: 1
+})
+
 
 let layerSwitcher = new LayerSwitcher({
     reverse: true,
@@ -70,13 +110,37 @@ const LC2004Map = new TileLayer({
 
 const LC2006Map = new TileLayer({
     title: 'Colorado 2006 Land Cover',
-    visible: true,
+    visible: false,
     source: LC2006Source,
+})
+
+const LC2008Map = new TileLayer({
+    title: 'Colorado 2008 Land Cover',
+    visible: false,
+    source: LC2008Source,
+})
+
+const LC2011Map = new TileLayer({
+    title: 'Colorado 2011 Land Cover',
+    visible: false,
+    source: LC2011Source,
+})
+
+const LC2013Map = new TileLayer({
+    title: 'Colorado 2013 Land Cover',
+    visible: false,
+    source: LC2013Source,
+})
+
+const LC2016Map = new TileLayer({
+    title: 'Colorado 2016 Land Cover',
+    visible: true,
+    source: LC2016Source,
 })
 
 const LCMaps = new LayerGroup({
     title: "Land Cover",
-    layers: [LC2001Map, LC2004Map, LC2006Map]
+    layers: [LC2001Map, LC2004Map, LC2006Map, LC2008Map, LC2011Map, LC2013Map, LC2016Map]
 })
 
 const map = new Map({
