@@ -20,14 +20,9 @@ const OSMLayer = new TileLayer({
     visible: 'true'
 })
 
-const baseMaps = new LayerGroup({
-    title: "Basemaps",
-    layers: [OSMLayer]
-})
-
 const LC2001Source = new TileWMS({
     url: 'https://geo.spatstats.com/geoserver/CO_LD_Map/wms',
-    params: {'LAYERS': 'CO_LD_Map:co_nlcd_land_cover_2001_pyr',
+    params: {'LAYERS': 'CO_LD_Map:CO_LC_2001_LG',
         'TILED': true,
         'VERSION': '1.1.1',
     },
@@ -38,6 +33,16 @@ const LC2001Source = new TileWMS({
 const LC2004Source = new TileWMS({
     url: 'https://geo.spatstats.com/geoserver/CO_LD_Map/wms',
     params: {'LAYERS': 'CO_LD_Map:co_nlcd_land_cover_2004_pyr',
+        'TILED': true,
+        'VERSION': '1.1.1',
+    },
+    serverType: 'geoserver',
+    ratio: 1
+})
+
+const LC2006Source = new TileWMS({
+    url: 'https://geo.spatstats.com/geoserver/CO_LD_Map/wms',
+    params: {'LAYERS': 'CO_LD_Map:co_nlcd_land_cover_2006_pyr',
         'TILED': true,
         'VERSION': '1.1.1',
     },
@@ -59,13 +64,19 @@ const LC2001Map = new TileLayer({
 
 const LC2004Map = new TileLayer({
     title: 'Colorado 2004 Land Cover',
-    visible: true,
+    visible: false,
     source: LC2004Source,
+})
+
+const LC2006Map = new TileLayer({
+    title: 'Colorado 2006 Land Cover',
+    visible: true,
+    source: LC2006Source,
 })
 
 const LCMaps = new LayerGroup({
     title: "Land Cover",
-    layers: [LC2001Map, LC2004Map]
+    layers: [LC2001Map, LC2004Map, LC2006Map]
 })
 
 const map = new Map({
@@ -73,9 +84,14 @@ const map = new Map({
     layers: [OSMLayer, LCMaps],
     view: new View({
         center: [-11754222,4728294],
-        zoom: 8
+        zoom: 8,
     })
 });
 
+map.setView(new View({
+    center: map.getView().getCenter(),
+    extent: map.getView().calculateExtent(map.getSize()),
+    zoom: 8
+}))
 
 map.addControl(layerSwitcher);
