@@ -179,6 +179,7 @@ window.onload = function () {
         '2008-01-01T00:00:00.000Z', '2011-01-01T00:00:00.000Z', '2013-01-01T00:00:00.000Z', '2016-01-01T00:00:00.000Z']
     const sliderRange = document.getElementById('yearRange');
     sliderRange.max = dates.length - 1;
+    sliderRange.value="6";
 
     const dateValue = document.getElementById('date_value');
     dateValue.innerHTML = dates[sliderRange.value].slice(0, 10)
