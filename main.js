@@ -3,7 +3,6 @@ import 'ol-layerswitcher/dist/ol-layerswitcher.css';
 import LayerGroup from 'ol/layer/Group'
 import Map from 'ol/Map';
 import OSM from 'ol/source/OSM';
-import SourceStamen from 'ol/source/Stamen';
 import TileWMS from 'ol/source/TileWMS'
 import View from 'ol/View';
 import {Tile as TileLayer, Vector as VectorLayer} from 'ol/layer';
@@ -91,6 +90,15 @@ const LC2016Source = new TileWMS({
 })
 
 
+const W3MosaicSource = new TileWMS({
+    url: 'https://geo.spatstats.com/geoserver/CO_LD_Map/wms',
+    params: {'LAYERS': 'CO_LD_Map:COForestFragW3',
+        'TILED': true,
+        'VERSION': '1.1.1',
+    }
+})
+
+
 let layerSwitcher = new LayerSwitcher({
     reverse: true,
     groupSelectStyle: 'group'
@@ -138,9 +146,15 @@ const LC2016Map = new TileLayer({
     source: LC2016Source,
 })
 
+const W3MosaicMap = new TileLayer({
+    title: 'Forest Fragmentation, 3-Pixel Window',
+    visible: true,
+    source: W3MosaicSource,
+})
+
 const LCMaps = new LayerGroup({
     title: "Land Cover",
-    layers: [LC2001Map, LC2004Map, LC2006Map, LC2008Map, LC2011Map, LC2013Map, LC2016Map]
+    layers: [LC2001Map, LC2004Map, LC2006Map, LC2008Map, LC2011Map, LC2013Map, LC2016Map, W3MosaicMap]
 })
 
 const map = new Map({
@@ -148,14 +162,31 @@ const map = new Map({
     layers: [OSMLayer, LCMaps],
     view: new View({
         center: [-11754222,4728294],
-        zoom: 8,
+        zoom: 7,
     })
 });
 
 map.setView(new View({
     center: map.getView().getCenter(),
     extent: map.getView().calculateExtent(map.getSize()),
-    zoom: 8
+    zoom: 7
 }))
 
 map.addControl(layerSwitcher);
+
+window.onload = function () {
+    const dates = ['2001-01-01T00:00:00.000Z', '2004-01-01T00:00:00.000Z', '2006-01-01T00:00:00.000Z',
+        '2008-01-01T00:00:00.000Z', '2011-01-01T00:00:00.000Z', '2013-01-01T00:00:00.000Z', '2016-01-01T00:00:00.000Z']
+    const sliderRange = document.getElementById('yearRange');
+    sliderRange.max = dates.length - 1;
+
+    const dateValue = document.getElementById('date_value');
+    dateValue.innerHTML = dates[sliderRange.value].slice(0, 10)
+    W3MosaicMap.getSource().updateParams({'TIME': dates[this.value]});
+
+    sliderRange.oninput = function () {
+        dateValue.innerHTML = dates[this.value].slice(0, 10);
+        console.log(dates[this.value].slice(0, 10));
+        W3MosaicMap.getSource().updateParams({'TIME': dates[this.value]});
+    }
+}
