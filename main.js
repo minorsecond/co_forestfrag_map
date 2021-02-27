@@ -81,6 +81,58 @@ LayerSwitcher.forEachRecursive(map, function (l, idx, a) {
     // Determine if layer is visible and, if so, make the slider point to it (if it's a forestfrag object)
 })
 
+function displayLegend(layer_name) {
+    // Display legend depending on layer
+
+    if (layer_name === "Forest Fragmentation") {
+        document.getElementById('map-legend').innerHTML =
+            "<table class=\"styled-legend\">\n" +
+            "    <thead>\n" +
+            "      <tr><th colspan='3' class='table-title'>Legend</th></tr>" +
+            "        <tr>\n" +
+            "            <th></th>\n" +
+            "            <th></th>\n" +
+            "            <th></th>\n" +
+            "        </tr>" +
+            "    </thead>\n" +
+            "    <tbody>\n" +
+            "        <tr class=\"active-row\">\n" +
+            "            <td><hr class='patch_square'</td>\n" +
+            "            <td>Patch</td>" +
+            "            <td></td>" +
+            "        </tr>" +
+            "        <tr class=\"active-row\">\n" +
+            "            <td><hr class='transitional_square'></td>\n" +
+            "            <td>Transitional</td>\n" +
+            "            <td></td>" +
+            "        </tr>" +
+            "        <tr class=\"active-row\">\n" +
+            "            <td><hr class='edge_square'</td>\n" +
+            "            <td>Edge</td>\n" +
+            "            <td></td>" +
+            "        </tr>" +
+            "        <tr class=\"active-row\">\n" +
+            "            <td><hr class='perforated_square'</td>\n" +
+            "            <td>Perforated</td>\n" +
+            "            <td></td>" +
+            "        </tr>" +
+            "        <tr class=\"active-row\">\n" +
+            "            <td><hr class='interior_square'</td>\n" +
+            "            <td>Interior</td>\n" +
+            "            <td></td>" +
+            "        </tr>" +
+            "        <tr class=\"active-row\">\n" +
+            "            <td><hr class='undetermined_square'</td>\n" +
+            "            <td>Undetermined</td>\n" +
+            "            <td></td>" +
+            "        </tr>" +
+        "        </tr>\n" +
+        "    </tbody>\n" +
+        "</table>"
+    }
+
+}
+
 window.onload = function () {
     const dates = ['2001-01-01T00:00:00.000Z', '2004-01-01T00:00:00.000Z', '2006-01-01T00:00:00.000Z',
         '2008-01-01T00:00:00.000Z', '2011-01-01T00:00:00.000Z', '2013-01-01T00:00:00.000Z', '2016-01-01T00:00:00.000Z']
@@ -98,5 +150,18 @@ window.onload = function () {
         console.log(dates[this.value].slice(0, 10));
         W3MosaicMap.getSource().updateParams({'TIME': dates[this.value]});
         LCMosaicMap.getSource().updateParams({'TIME': dates[this.value]});
+    }
+
+    if (document.addEventListener) {
+        document.addEventListener("click", function(event) {
+            let targetElement = event.target || event.srcElement;
+            let clicked_element = targetElement.innerText
+
+            // Determine when user selects a layer item
+            if (clicked_element === "Forest Fragmentation" || clicked_element === "Colorado Land Cover") {
+                console.log("Clicked and element");
+                displayLegend(clicked_element);
+            }
+        })
     }
 }

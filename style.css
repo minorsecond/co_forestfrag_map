@@ -46,3 +46,88 @@
     opacity: .7;
     text-align: center;
 }
+
+.styled-legend {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 200px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-legend thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+    height: .5em;
+    border-left: 2px solid #009879;
+    border-right: 2px solid #009879;
+}
+
+.styled-legend th,
+.styled-legend td {
+    padding: 8px 10px;
+}
+
+.styled-legend tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-legend tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-legend tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.styled-legend tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+    background-color: #ffffff;
+    border-left: 2px solid #009879;
+    border-right: 2px solid #009879;
+}
+
+.patch_square {
+    width:10px;
+    height: 10px;
+    background-color: #d73027;
+    border: none;
+}
+
+.transitional_square {
+    width: 10px;
+    height: 10px;
+    background-color: #f88c5a;
+    border: none;
+}
+
+.edge_square {
+    width: 10px;
+    height: 10px;
+    background-color: #fce08b;
+    border: none;
+}
+
+.perforated_square {
+    width: 10px;
+    height: 10px;
+    background-color: #d9ee8b;
+    border: none;
+}
+
+.interior_square {
+    width: 10px;
+    height: 10px;
+    background-color: #25984f;
+    border: none;
+}
+
+.undetermined_square {
+    width: 10px;
+    height: 10px;
+    background-color: #91ce60;
+    border: none;
+}
