@@ -3,7 +3,7 @@
     width: 120px;
     margin-top: -30px;
     margin-left: 10px;
-    z-index: 100px;
+    z-index: 100;
 }
 
 .slider {
@@ -24,7 +24,7 @@
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    background: 	#00008B;
+    background: 	#228B22;
     cursor: pointer;
 }
 
@@ -34,4 +34,15 @@
     border-radius: 50%;
     background: #4CAF50;
     cursor: pointer;
+}
+
+.year_text {
+    position: absolute;
+    top: 10%;
+    margin-left: 2%;
+    width: 10%;
+    border: 3px solid forestgreen;
+    background-color: #FFFFFF;
+    opacity: .7;
+    text-align: center;
 }

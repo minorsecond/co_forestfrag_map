@@ -89,12 +89,12 @@ window.onload = function () {
     sliderRange.value="6";
 
     const dateValue = document.getElementById('date_value');
-    dateValue.innerHTML = dates[sliderRange.value].slice(0, 10)
+    dateValue.innerHTML = dates[sliderRange.value].slice(0, 10).substring(0,4)
     W3MosaicMap.getSource().updateParams({'TIME': dates[this.value]});
     LCMosaicMap.getSource().updateParams({'TIME': dates[this.value]});
 
     sliderRange.oninput = function () {
-        dateValue.innerHTML = dates[this.value].slice(0, 10);
+        dateValue.innerHTML = dates[sliderRange.value].slice(0, 10).substring(0,4)
         console.log(dates[this.value].slice(0, 10));
         W3MosaicMap.getSource().updateParams({'TIME': dates[this.value]});
         LCMosaicMap.getSource().updateParams({'TIME': dates[this.value]});
