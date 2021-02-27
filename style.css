@@ -40,6 +40,17 @@ body {
     cursor: pointer;
 }
 
+.title_text {
+    position: absolute;
+    top: 3%;
+    margin-left: 37.5%;
+    width: 25%;
+    border: 3px solid #3c73a8;
+    background-color: #FFFFFF;
+    opacity: .90;
+    text-align: center;
+}
+
 .year_text {
     position: absolute;
     top: 10%;
