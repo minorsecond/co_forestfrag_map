@@ -186,7 +186,7 @@ function displayLegend(layer_name) {
             "            <td></td>" +
             "        </tr>" +
             "        <tr class=\"active-row\">\n" +
-            "            <td><hr class='mixed_forest_square'</td>\n" +
+            "            <td><hr class='mix_forest_square'</td>\n" +
             "            <td>Mixed Forest</td>\n" +
             "            <td></td>" +
             "        </tr>" +
