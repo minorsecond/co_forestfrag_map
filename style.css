@@ -1,3 +1,7 @@
+body {
+    font-family: Arial, serif
+}
+
 /* Setting up the slider styling */
 .slidecontainer {
     width: 120px;
@@ -43,7 +47,7 @@
     width: 10%;
     border: 3px solid #009879;
     background-color: #FFFFFF;
-    opacity: .7;
+    opacity: .90;
     text-align: center;
 }
 
