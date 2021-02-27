@@ -51,6 +51,17 @@ body {
     text-align: center;
 }
 
+.table-title {
+    font-size: 1.35em;
+    font-weight: bold;
+    color: #3c73a8;
+    background-color: #ffffff;
+    text-align: center;
+    border-top: 2px solid #3c73a8;
+    border-left: 2px solid #3c73a8;
+    border-right: 2px solid #3c73a8;
+}
+
 .styled-legend {
     border-collapse: collapse;
     margin: 25px 0;
