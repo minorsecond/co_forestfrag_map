@@ -6,6 +6,7 @@ import OSM from 'ol/source/OSM';
 import TileWMS from 'ol/source/TileWMS'
 import View from 'ol/View';
 import {Tile as TileLayer, Vector as VectorLayer} from 'ol/layer';
+import Attribution from "ol/control/Attribution";
 
 import LayerSwitcher, {GroupLayerOptions} from 'ol-layerswitcher';
 
@@ -16,6 +17,7 @@ const OSMLayer = new TileLayer({
 })
 
 const LCMosaicSource = new TileWMS({
+    attributions: "| Robert Ross Wardrup | www.rwardrup.com",
     url: 'https://geo.spatstats.com/geoserver/CO_LD_Map/wms',
     params: {'LAYERS': 'CO_LD_Map:CO_NLCD',
         'TILED': true,
@@ -24,6 +26,7 @@ const LCMosaicSource = new TileWMS({
 })
 
 const W3MosaicSource = new TileWMS({
+    attributions: "| Robert Ross Wardrup | www.rwardrup.com",
     url: 'https://geo.spatstats.com/geoserver/CO_LD_Map/wms',
     params: {'LAYERS': 'CO_LD_Map:COForestFragW3',
         'TILED': true,
