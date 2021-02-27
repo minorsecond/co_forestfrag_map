@@ -6,17 +6,13 @@ import OSM from 'ol/source/OSM';
 import TileWMS from 'ol/source/TileWMS'
 import View from 'ol/View';
 import {Tile as TileLayer, Vector as VectorLayer} from 'ol/layer';
-import {bbox as bboxStrategy} from 'ol/loadingstrategy'
-import VectorSource from 'ol/source/Vector';
-import GeoJSON from 'ol/format/GeoJSON';
-import {Style, Circle, Fill, Stroke} from 'ol/style';
 
 import LayerSwitcher, {GroupLayerOptions} from 'ol-layerswitcher';
 
 const OSMLayer = new TileLayer({
     source: new OSM(),
-    type: 'base',
-    visible: 'true'
+    visible: 'true',
+    displayInLayerSwitcher: false
 })
 
 const LCMosaicSource = new TileWMS({
@@ -41,6 +37,7 @@ let layerSwitcher = new LayerSwitcher({
 })
 
 const LCMosaicMap = new TileLayer({
+    type: 'base',
     title: 'Colorado Land Cover',
     attribution: "Robert Ross Wardrup",
     visible: false,
@@ -48,6 +45,7 @@ const LCMosaicMap = new TileLayer({
 })
 
 const W3MosaicMap = new TileLayer({
+    type: 'base',
     title: 'Forest Fragmentation',
     attribution: "Robert Ross Wardrup",
     visible: true,
@@ -83,9 +81,6 @@ LayerSwitcher.forEachRecursive(map, function (l, idx, a) {
 
 function displayLegend(layer_name) {
     // Display legend depending on layer
-
-    document.getElementById("map-legend").innerHTML = "";
-
     if (layer_name === "Forest Fragmentation") {
         document.getElementById('map-legend').innerHTML =
             "<table class=\"styled-legend\">\n" +
@@ -146,33 +141,83 @@ function displayLegend(layer_name) {
             "    </thead>\n" +
             "    <tbody>\n" +
             "        <tr class=\"active-row\">\n" +
-            "            <td><hr class='patch_square'</td>\n" +
-            "            <td>Patch</td>" +
+            "            <td><hr class='open_water_square'</td>\n" +
+            "            <td>Open Water</td>" +
             "            <td></td>" +
             "        </tr>" +
             "        <tr class=\"active-row\">\n" +
-            "            <td><hr class='transitional_square'></td>\n" +
-            "            <td>Transitional</td>\n" +
+            "            <td><hr class='ice_snow_square'></td>\n" +
+            "            <td>Perennial Ice/Snow</td>\n" +
             "            <td></td>" +
             "        </tr>" +
             "        <tr class=\"active-row\">\n" +
-            "            <td><hr class='edge_square'</td>\n" +
-            "            <td>Edge</td>\n" +
+            "            <td><hr class='dev_open_space_square'</td>\n" +
+            "            <td>Developed, Open Space</td>\n" +
             "            <td></td>" +
             "        </tr>" +
             "        <tr class=\"active-row\">\n" +
-            "            <td><hr class='perforated_square'</td>\n" +
-            "            <td>Perforated</td>\n" +
+            "            <td><hr class='dev_low_intensity_square'</td>\n" +
+            "            <td>Developed, Low Intensity</td>\n" +
             "            <td></td>" +
             "        </tr>" +
             "        <tr class=\"active-row\">\n" +
-            "            <td><hr class='interior_square'</td>\n" +
-            "            <td>Interior</td>\n" +
+            "            <td><hr class='dev_med_intensity_square'</td>\n" +
+            "            <td>Developed, Medium Intensity</td>\n" +
             "            <td></td>" +
             "        </tr>" +
             "        <tr class=\"active-row\">\n" +
-            "            <td><hr class='undetermined_square'</td>\n" +
-            "            <td>Undetermined</td>\n" +
+            "            <td><hr class='dev_hi_intensity_square'</td>\n" +
+            "            <td>Developed, High Intensity</td>\n" +
+            "            <td></td>" +
+            "        </tr>" +
+            "        <tr class=\"active-row\">\n" +
+            "            <td><hr class='barren_land_square'</td>\n" +
+            "            <td>Barren Land (Rock/Sand/Clay)</td>\n" +
+            "            <td></td>" +
+            "        </tr>" +
+            "        <tr class=\"active-row\">\n" +
+            "            <td><hr class='decid_forest_square'</td>\n" +
+            "            <td>Deciduous Forest</td>\n" +
+            "            <td></td>" +
+            "        </tr>" +
+            "        <tr class=\"active-row\">\n" +
+            "            <td><hr class='evergreen_forest_square'</td>\n" +
+            "            <td>Evergreen Forest</td>\n" +
+            "            <td></td>" +
+            "        </tr>" +
+            "        <tr class=\"active-row\">\n" +
+            "            <td><hr class='mixed_forest_square'</td>\n" +
+            "            <td>Mixed Forest</td>\n" +
+            "            <td></td>" +
+            "        </tr>" +
+            "        <tr class=\"active-row\">\n" +
+            "            <td><hr class='shrub_scrub_square'</td>\n" +
+            "            <td>Shrub/Scrub</td>\n" +
+            "            <td></td>" +
+            "        </tr>" +
+            "        <tr class=\"active-row\">\n" +
+            "            <td><hr class='grass_herb_square'</td>\n" +
+            "            <td>Grassland/Herbaceous</td>\n" +
+            "            <td></td>" +
+            "        </tr>" +
+            "        <tr class=\"active-row\">\n" +
+            "            <td><hr class='pasture_hay_square'</td>\n" +
+            "            <td>Pasture/Hay</td>\n" +
+            "            <td></td>" +
+            "        </tr>" +
+            "        <tr class=\"active-row\">\n" +
+            "            <td><hr class='crops_square'</td>\n" +
+            "            <td>Cultivated Crops</td>\n" +
+            "            <td></td>" +
+            "        </tr>" +
+            "        <tr class=\"active-row\">\n" +
+            "            <td><hr class='woody_wetlands_square'</td>\n" +
+            "            <td>Woody Wetlands</td>\n" +
+            "            <td></td>" +
+            "        </tr>" +
+            "        <tr class=\"active-row\">\n" +
+            "            <td><hr class='emer_herb_wetlands_square'</td>\n" +
+            "            <td>Emergent Herbaceous Wetlands</td>\n" +
             "            <td></td>" +
             "        </tr>" +
             "        </tr>\n" +
@@ -183,6 +228,20 @@ function displayLegend(layer_name) {
 }
 
 window.onload = function () {
+    displayLegend("Forest Fragmentation");
+    LayerSwitcher.forEachRecursive(map, function (l, idx, a) {
+        l.on("change:visible", function (e) {
+            const lyr = e.target;
+            const lyrName = e.target.get('title');
+            const lyrVisible = e.target.getVisible();
+
+            if (lyrVisible === true) {
+                document.getElementById("map-legend").innerHTML = "";
+                console.log(lyrName, lyrVisible);
+                displayLegend(lyrName);
+            }
+        })
+    })
     const dates = ['2001-01-01T00:00:00.000Z', '2004-01-01T00:00:00.000Z', '2006-01-01T00:00:00.000Z',
         '2008-01-01T00:00:00.000Z', '2011-01-01T00:00:00.000Z', '2013-01-01T00:00:00.000Z', '2016-01-01T00:00:00.000Z']
     const sliderRange = document.getElementById('yearRange');
@@ -199,18 +258,5 @@ window.onload = function () {
         console.log(dates[this.value].slice(0, 10));
         W3MosaicMap.getSource().updateParams({'TIME': dates[this.value]});
         LCMosaicMap.getSource().updateParams({'TIME': dates[this.value]});
-    }
-
-    if (document.addEventListener) {
-        document.addEventListener("click", function(event) {
-            let targetElement = event.target || event.srcElement;
-            let clicked_element = targetElement.innerText
-
-            // Determine when user selects a layer item
-            if (clicked_element === "Forest Fragmentation" || clicked_element === "Colorado Land Cover") {
-                console.log("Clicked and element");
-                displayLegend(clicked_element);
-            }
-        })
     }
 }
