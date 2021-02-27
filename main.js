@@ -18,8 +18,8 @@ const OSMLayer = new TileLayer({
 
 const LCMosaicSource = new TileWMS({
     attributions: "| Robert Ross Wardrup | www.rwardrup.com",
-    url: 'https://geo.spatstats.com/geoserver/CO_LD_Map/wms',
-    params: {'LAYERS': 'CO_LD_Map:CO_NLCD',
+    url: 'https://geo.spatstats.com/geoserver/CO_ForestFrag/wms',
+    params: {'LAYERS': 'CO_ForestFrag:CO_NLCD',
         'TILED': true,
         'VERSION': '1.1.1',
     }
@@ -27,8 +27,8 @@ const LCMosaicSource = new TileWMS({
 
 const W3MosaicSource = new TileWMS({
     attributions: "| Robert Ross Wardrup | www.rwardrup.com",
-    url: 'https://geo.spatstats.com/geoserver/CO_LD_Map/wms',
-    params: {'LAYERS': 'CO_LD_Map:COForestFragW3',
+    url: 'https://geo.spatstats.com/geoserver/CO_ForestFrag/wms',
+    params: {'LAYERS': 'CO_ForestFrag:COForestFragW3',
         'TILED': true,
         'VERSION': '1.1.1',
     }
