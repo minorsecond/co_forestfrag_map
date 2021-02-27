@@ -19,76 +19,13 @@ const OSMLayer = new TileLayer({
     visible: 'true'
 })
 
-const LC2001Source = new TileWMS({
+const LCMosaicSource = new TileWMS({
     url: 'https://geo.spatstats.com/geoserver/CO_LD_Map/wms',
-    params: {'LAYERS': 'CO_LD_Map:CO_LC_2001_LG',
+    params: {'LAYERS': 'CO_LD_Map:CO_NLCD',
         'TILED': true,
         'VERSION': '1.1.1',
-    },
-    serverType: 'geoserver',
-    ratio: 1
+    }
 })
-
-const LC2004Source = new TileWMS({
-    url: 'https://geo.spatstats.com/geoserver/CO_LD_Map/wms',
-    params: {'LAYERS': 'CO_LD_Map:co_nlcd_land_cover_2004_pyr',
-        'TILED': true,
-        'VERSION': '1.1.1',
-    },
-    serverType: 'geoserver',
-    ratio: 1
-})
-
-const LC2006Source = new TileWMS({
-    url: 'https://geo.spatstats.com/geoserver/CO_LD_Map/wms',
-    params: {'LAYERS': 'CO_LD_Map:co_nlcd_land_cover_2006_pyr',
-        'TILED': true,
-        'VERSION': '1.1.1',
-    },
-    serverType: 'geoserver',
-    ratio: 1
-})
-
-const LC2008Source = new TileWMS({
-    url: 'https://geo.spatstats.com/geoserver/CO_LD_Map/wms',
-    params: {'LAYERS': 'CO_LD_Map:co_nlcd_land_cover_2008_pyr',
-        'TILED': true,
-        'VERSION': '1.1.1',
-    },
-    serverType: 'geoserver',
-    ratio: 1
-})
-
-const LC2011Source = new TileWMS({
-    url: 'https://geo.spatstats.com/geoserver/CO_LD_Map/wms',
-    params: {'LAYERS': 'CO_LD_Map:co_nlcd_land_cover_2011_pyr',
-        'TILED': true,
-        'VERSION': '1.1.1',
-    },
-    serverType: 'geoserver',
-    ratio: 1
-})
-
-const LC2013Source = new TileWMS({
-    url: 'https://geo.spatstats.com/geoserver/CO_LD_Map/wms',
-    params: {'LAYERS': 'CO_LD_Map:co_nlcd_land_cover_2013_pyr',
-        'TILED': true,
-        'VERSION': '1.1.1',
-    },
-    serverType: 'geoserver',
-    ratio: 1
-})
-
-const LC2016Source = new TileWMS({
-    url: 'https://geo.spatstats.com/geoserver/CO_LD_Map/wms',
-    params: {'LAYERS': 'CO_LD_Map:co_nlcd_land_cover_2016_pyr',
-        'TILED': true,
-        'VERSION': '1.1.1',
-    },
-    serverType: 'geoserver',
-    ratio: 1
-})
-
 
 const W3MosaicSource = new TileWMS({
     url: 'https://geo.spatstats.com/geoserver/CO_LD_Map/wms',
@@ -98,63 +35,28 @@ const W3MosaicSource = new TileWMS({
     }
 })
 
-
 let layerSwitcher = new LayerSwitcher({
     reverse: true,
     groupSelectStyle: 'group'
 })
 
-const LC2001Map = new TileLayer({
-    title: 'Colorado 2001 Land Cover',
+const LCMosaicMap = new TileLayer({
+    title: 'Colorado Land Cover',
+    attribution: "Robert Ross Wardrup",
     visible: false,
-    source: LC2001Source,
-})
-
-const LC2004Map = new TileLayer({
-    title: 'Colorado 2004 Land Cover',
-    visible: false,
-    source: LC2004Source,
-})
-
-const LC2006Map = new TileLayer({
-    title: 'Colorado 2006 Land Cover',
-    visible: false,
-    source: LC2006Source,
-})
-
-const LC2008Map = new TileLayer({
-    title: 'Colorado 2008 Land Cover',
-    visible: false,
-    source: LC2008Source,
-})
-
-const LC2011Map = new TileLayer({
-    title: 'Colorado 2011 Land Cover',
-    visible: false,
-    source: LC2011Source,
-})
-
-const LC2013Map = new TileLayer({
-    title: 'Colorado 2013 Land Cover',
-    visible: false,
-    source: LC2013Source,
-})
-
-const LC2016Map = new TileLayer({
-    title: 'Colorado 2016 Land Cover',
-    visible: true,
-    source: LC2016Source,
+    source: LCMosaicSource,
 })
 
 const W3MosaicMap = new TileLayer({
-    title: 'Forest Fragmentation, 3-Pixel Window',
+    title: 'Forest Fragmentation',
+    attribution: "Robert Ross Wardrup",
     visible: true,
     source: W3MosaicSource,
 })
 
 const LCMaps = new LayerGroup({
     title: "Land Cover",
-    layers: [LC2001Map, LC2004Map, LC2006Map, LC2008Map, LC2011Map, LC2013Map, LC2016Map, W3MosaicMap]
+    layers: [LCMosaicMap, W3MosaicMap]
 })
 
 const map = new Map({
@@ -174,6 +76,11 @@ map.setView(new View({
 
 map.addControl(layerSwitcher);
 
+LayerSwitcher.forEachRecursive(map, function (l, idx, a) {
+    console.log(l);
+    // Determine if layer is visible and, if so, make the slider point to it (if it's a forestfrag object)
+})
+
 window.onload = function () {
     const dates = ['2001-01-01T00:00:00.000Z', '2004-01-01T00:00:00.000Z', '2006-01-01T00:00:00.000Z',
         '2008-01-01T00:00:00.000Z', '2011-01-01T00:00:00.000Z', '2013-01-01T00:00:00.000Z', '2016-01-01T00:00:00.000Z']
@@ -184,10 +91,12 @@ window.onload = function () {
     const dateValue = document.getElementById('date_value');
     dateValue.innerHTML = dates[sliderRange.value].slice(0, 10)
     W3MosaicMap.getSource().updateParams({'TIME': dates[this.value]});
+    LCMosaicMap.getSource().updateParams({'TIME': dates[this.value]});
 
     sliderRange.oninput = function () {
         dateValue.innerHTML = dates[this.value].slice(0, 10);
         console.log(dates[this.value].slice(0, 10));
         W3MosaicMap.getSource().updateParams({'TIME': dates[this.value]});
+        LCMosaicMap.getSource().updateParams({'TIME': dates[this.value]});
     }
 }
