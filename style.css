@@ -131,3 +131,99 @@
     background-color: #91ce60;
     border: none;
 }
+
+.open_water_square {
+    width: 10px;
+    height: 10px;
+    background-color: #466b9f;
+}
+
+.ice_snow_square {
+    width: 10px;
+    height: 10px;
+    background-color: #d1def8;
+}
+
+.dev_open_space_square {
+    width: 10px;
+    height: 10px;
+    background-color: #dec5c5;
+}
+
+.dev_low_intensity_square {
+    width: 10px;
+    height: 10px;
+    background-color: #d99282;
+}
+
+.dev_med_intensity_square {
+    width: 10px;
+    height: 10px;
+    background-color: #eb0000;
+}
+
+.dev_hi_intensity_square {
+    width: 10px;
+    height: 10px;
+    background-color: #ab0000;
+}
+
+.barren_land_square {
+    width: 10px;
+    height: 10px;
+    background-color: #b3ac9f;
+}
+
+.decid_forest_square {
+    width: 10px;
+    height: 10px;
+    background-color: #68ab5f;
+}
+
+.evergreen_forest_square {
+    width: 10px;
+    height: 10px;
+    background-color: #1c5f2c;
+}
+
+.mix_forest_square {
+    width: 10px;
+    height: 10px;
+    background-color: #b5c58f;
+}
+
+.shrub_scrub_square {
+    width: 10px;
+    height: 10px;
+    background-color: #ccb879;
+}
+
+.grass_herb_square {
+    width: 10px;
+    height: 10px;
+    background-color: #dfdfc2;
+}
+
+.pasture_hay_square {
+    width: 10px;
+    height: 10px;
+    background-color: #dcd939;
+}
+
+.crops_square {
+    width: 10px;
+    height: 10px;
+    background-color: #ab6c28;
+}
+
+.woody_wetlands_square {
+    width: 10px;
+    height: 10px;
+    background-color: #b8d9eb;
+}
+
+.emer_herb_wetlands_square {
+    width: 10px;
+    height: 10px;
+    background-color: #6c9fb8;
+}
