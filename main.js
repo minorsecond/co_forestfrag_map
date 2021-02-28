@@ -121,11 +121,6 @@ function displayLegend(layer_name) {
             "            <td>Interior</td>\n" +
             "            <td></td>" +
             "        </tr>" +
-            "        <tr class=\"active-row\">\n" +
-            "            <td><hr class='undetermined_square'</td>\n" +
-            "            <td>Undetermined</td>\n" +
-            "            <td></td>" +
-            "        </tr>" +
         "        </tr>\n" +
         "    </tbody>\n" +
         "</table>"
