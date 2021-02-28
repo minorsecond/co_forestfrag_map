@@ -21,7 +21,7 @@ const LCMosaicSource = new TileWMS({
     url: 'https://geo.spatstats.com/geoserver/CO_ForestFrag/wms',
     params: {'LAYERS': 'CO_ForestFrag:CO_NLCD',
         'TILED': true,
-        'VERSION': '1.1.1',
+        'VERSION': '1.3.0',
     }
 })
 
@@ -30,7 +30,7 @@ const W3MosaicSource = new TileWMS({
     url: 'https://geo.spatstats.com/geoserver/CO_ForestFrag/wms',
     params: {'LAYERS': 'CO_ForestFrag:COForestFragW3',
         'TILED': true,
-        'VERSION': '1.1.1',
+        'VERSION': '1.3.0',
     }
 })
 
