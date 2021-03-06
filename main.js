@@ -9,6 +9,9 @@ import {Tile as TileLayer, Vector as VectorLayer} from 'ol/layer';
 import Attribution from "ol/control/Attribution";
 
 import LayerSwitcher, {GroupLayerOptions} from 'ol-layerswitcher';
+import VectorSource from "ol/source/Vector";
+import GeoJSON from "ol/format/GeoJSON";
+import {bbox as bboxStrategy} from "ol/loadingstrategy";
 
 const OSMLayer = new TileLayer({
     source: new OSM(),
@@ -33,6 +36,22 @@ const W3MosaicSource = new TileWMS({
         'VERSION': '1.3.0',
     }
 })
+
+const InteriorChangeSource = new VectorSource({
+    format: new GeoJSON(),
+    attributions: "| Robert Ross Wardrup | www.rwardrup.com",
+    url: function (extent) {
+        return (
+            'https://geo.spatstats.com/geoserver/ows?service=WFS&' +
+            'version=2.0.0&request=GetFeature&typename=CO_ForestFrag:ForestFragStats&' +
+            'outputFormat=application/json&srsname=EPSG:3857&' +
+            'bbox=' +
+            extent.join(',') +
+            ',EPSG:3857'
+        );
+    },
+    strategy: bboxStrategy,
+});
 
 let layerSwitcher = new LayerSwitcher({
     reverse: true,
