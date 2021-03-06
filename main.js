@@ -37,21 +37,14 @@ const W3MosaicSource = new TileWMS({
     }
 })
 
-const InteriorChangeSource = new VectorSource({
-    format: new GeoJSON(),
+const InteriorChangeSource = new TileWMS({
     attributions: "| Robert Ross Wardrup | www.rwardrup.com",
-    url: function (extent) {
-        return (
-            'https://geo.spatstats.com/geoserver/ows?service=WFS&' +
-            'version=2.0.0&request=GetFeature&typename=CO_ForestFrag:ForestFragStats&' +
-            'outputFormat=application/json&srsname=EPSG:3857&' +
-            'bbox=' +
-            extent.join(',') +
-            ',EPSG:3857'
-        );
-    },
-    strategy: bboxStrategy,
-});
+    url: 'https://geo.spatstats.com/geoserver/CO_ForestFrag/wms',
+    params: {'LAYERS': 'CO_ForestFrag:ForestFragStats',
+        'TILED': true,
+        'VERSION': '1.3.0',
+    }
+})
 
 let layerSwitcher = new LayerSwitcher({
     reverse: true,
@@ -74,14 +67,10 @@ const W3MosaicMap = new TileLayer({
     source: W3MosaicSource,
 })
 
-const InteriorChangeMap = new VectorLayer({
-    title: 'Counties',
+const InteriorChangeMap = new TileLayer({
+    title: 'Forest Interior Change',
     visible: true,
-    source: InteriorChangeSource,
-    style: function (feature) {
-        InteriorChangeLabelStyle.getText().setText(feature.get('name'));
-        return InteriorChangeStyles;
-    },
+    source: InteriorChangeSource
 });
 
 const LCMaps = new LayerGroup({
@@ -91,7 +80,7 @@ const LCMaps = new LayerGroup({
 
 const map = new Map({
     target: 'map',
-    layers: [OSMLayer, LCMaps],
+    layers: [OSMLayer, LCMaps, InteriorChangeMap],
     view: new View({
         center: [-11754222,4728294],
         zoom: 7,
