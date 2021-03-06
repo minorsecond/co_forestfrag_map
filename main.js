@@ -74,6 +74,16 @@ const W3MosaicMap = new TileLayer({
     source: W3MosaicSource,
 })
 
+const InteriorChangeMap = new VectorLayer({
+    title: 'Counties',
+    visible: true,
+    source: InteriorChangeSource,
+    style: function (feature) {
+        InteriorChangeLabelStyle.getText().setText(feature.get('name'));
+        return InteriorChangeStyles;
+    },
+});
+
 const LCMaps = new LayerGroup({
     title: "Land Cover",
     layers: [LCMosaicMap, W3MosaicMap]
