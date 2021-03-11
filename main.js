@@ -101,7 +101,7 @@ LayerSwitcher.forEachRecursive(map, function (l, idx, a) {
     // Determine if layer is visible and, if so, make the slider point to it (if it's a forestfrag object)
 })
 
-function displayLegend(layer_name) {
+function displayLegend(layer_name, addl_layer) {
     // Display legend depending on layer
     if (layer_name === "Forest Fragmentation") {
         document.getElementById('map-legend').innerHTML =
@@ -139,10 +139,7 @@ function displayLegend(layer_name) {
             "            <td><hr class='interior_square'</td>\n" +
             "            <td>Interior</td>\n" +
             "            <td></td>" +
-            "        </tr>" +
-        "        </tr>\n" +
-        "    </tbody>\n" +
-        "</table>"
+            "        </tr>"
     }
 
     else if (layer_name === "Colorado Land Cover") {
@@ -242,53 +239,50 @@ function displayLegend(layer_name) {
             "</table>"
     }
     if (layer_name === "Forest Interior Change") {
-        console.log("Ran this");
-        document.getElementById('map-legend_right').innerHTML =
-            "<table class=\"styled-legend\">\n" +
-            "    <thead>\n" +
-            "      <tr><th colspan='3' class='table-title'>Forest Interior Change: 2001-2016</th></tr>" +
-            "        <tr>\n" +
-            "            <th></th>\n" +
-            "            <th></th>\n" +
-            "            <th></th>\n" +
-            "        </tr>" +
-            "    </thead>\n" +
-            "    <tbody>\n" +
+        let current_legend = document.getElementById('map-legend').innerHTML;
+        current_legend = current_legend.replace('</tr></tbody></table>', '');
+        document.getElementById('map-legend').innerHTML = current_legend +
             "        <tr class=\"active-row\">\n" +
             "            <td style='display: block; text-align: center; margin: 0 auto;' ><span id='x' class='lowest_ff_change_class'>XX</span></td>\n" +
-            "            <td>-0.8% - -0.4%</td>" +
+            "            <td>-0.8% - -0.4% Change</td>" +
             "            <td></td>" +
             "        </tr>" +
             "        <tr class=\"active-row\">\n" +
             "            <td style='display: block; text-align: center; margin: 0 auto;' ><span id='x' class='second_lowest_ff_change_class'>XX</span></td>\n" +
-            "            <td>-0.4% - -0.08%</td>\n" +
+            "            <td>-0.4% - -0.08% Change</td>\n" +
             "            <td></td>" +
             "        </tr>" +
             "        <tr class=\"active-row\">\n" +
             "            <td style='display: block; text-align: center; margin: 0 auto;' ><span id='x' class='middle_ff_change_class'>XX</span></td>\n" +
-            "            <td>-0.08% - 0.05%</td>\n" +
+            "            <td>-0.08% - 0.05% Change</td>\n" +
             "            <td></td>" +
             "        </tr>" +
             "        <tr class=\"active-row\">\n" +
             "            <td style='display: block; text-align: center; margin: 0 auto;' ><span id='x' class='second_highest_ff_change_class'>XX</span></td>\n" +
-            "            <td>0.05% - 1.72%</td>\n" +
+            "            <td>0.05% - 1.72% Change</td>\n" +
             "            <td></td>" +
             "        </tr>" +
             "        <tr class=\"active-row\">\n" +
             "            <td style='display: block; text-align: center; margin: 0 auto;' ><span id='x' class='highest_ff_change_class'>XX</span></td>\n" +
-            "            <td>1.72% - 3.58%</td>\n" +
+            "            <td>1.72% - 3.58% Change</td>\n" +
             "            <td></td>" +
-            "        </tr>" +
+            "        </tr>"
+    }
+
+    if (addl_layer === false) {
+        document.getElementById('map-legend').innerHTML +=
             "        </tr>\n" +
             "    </tbody>\n" +
             "</table>"
     }
 
+    const new_legend = document.getElementById('map-legend').innerHTML;
+    console.log(new_legend);
 }
 
 window.onload = function () {
-    displayLegend('Forest Interior Change');
-    displayLegend("Forest Fragmentation");
+    displayLegend("Forest Fragmentation", true);
+    displayLegend('Forest Interior Change', false);
     LayerSwitcher.forEachRecursive(map, function (l, idx, a) {
         l.on("change:visible", function (e) {
             const lyrName = e.target.get('title');
