@@ -96,11 +96,6 @@ map.setView(new View({
 
 map.addControl(layerSwitcher);
 
-LayerSwitcher.forEachRecursive(map, function (l, idx, a) {
-    console.log(l);
-    // Determine if layer is visible and, if so, make the slider point to it (if it's a forestfrag object)
-})
-
 function displayLegend(layer_name, addl_layer) {
     // Display legend depending on layer
     if (layer_name === "Forest Fragmentation") {
@@ -233,10 +228,7 @@ function displayLegend(layer_name, addl_layer) {
             "            <td><hr class='emer_herb_wetlands_square'</td>\n" +
             "            <td>Emergent Herbaceous Wetlands</td>\n" +
             "            <td></td>" +
-            "        </tr>" +
-            "        </tr>\n" +
-            "    </tbody>\n" +
-            "</table>"
+            "        </tr>"
     }
     if (layer_name === "Forest Interior Change") {
         let current_legend = document.getElementById('map-legend').innerHTML;
@@ -275,29 +267,33 @@ function displayLegend(layer_name, addl_layer) {
             "    </tbody>\n" +
             "</table>"
     }
-
-    const new_legend = document.getElementById('map-legend').innerHTML;
-    console.log(new_legend);
 }
 
+
+let current_basemap = 'Forest Fragmentation';
 window.onload = function () {
-    displayLegend("Forest Fragmentation", true);
+    displayLegend(current_basemap, true);
     displayLegend('Forest Interior Change', false);
     LayerSwitcher.forEachRecursive(map, function (l, idx, a) {
         l.on("change:visible", function (e) {
             const lyrName = e.target.get('title');
             const lyrVisible = e.target.getVisible();
 
-            console.log(lyrName);
+            console.log(a);
+
+            if (lyrName !== 'Forest Interior Change' && lyrVisible) {
+                current_basemap = lyrName;
+                console.log("Current basemap is " + current_basemap);
+            }
 
             if (lyrVisible === true && lyrName !== 'Forest Interior Change') {
                 document.getElementById("map-legend").innerHTML = "";
                 console.log(lyrName, lyrVisible);
-                displayLegend(lyrName);
+                displayLegend(lyrName, false);
             } else if (lyrVisible === true && lyrName === 'Forest Interior Change') {
                 displayLegend(lyrName);
             } else if (lyrVisible === false && lyrName === 'Forest Interior Change') {
-                document.getElementById("map-legend_right").innerHTML = "";
+                displayLegend(current_basemap, false);
             }
         })
     })
