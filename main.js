@@ -69,6 +69,7 @@ const W3MosaicMap = new TileLayer({
 
 const InteriorChangeMap = new TileLayer({
     title: 'Forest Interior Change',
+    opacity: .75,
     visible: true,
     source: InteriorChangeSource
 });
@@ -240,21 +241,69 @@ function displayLegend(layer_name) {
             "    </tbody>\n" +
             "</table>"
     }
+    if (layer_name === "Forest Interior Change") {
+        console.log("Ran this");
+        document.getElementById('map-legend_right').innerHTML =
+            "<table class=\"styled-legend\">\n" +
+            "    <thead>\n" +
+            "      <tr><th colspan='3' class='table-title'>Forest Interior Change: 2001-2016</th></tr>" +
+            "        <tr>\n" +
+            "            <th></th>\n" +
+            "            <th></th>\n" +
+            "            <th></th>\n" +
+            "        </tr>" +
+            "    </thead>\n" +
+            "    <tbody>\n" +
+            "        <tr class=\"active-row\">\n" +
+            "            <td style='display: block; text-align: center; margin: 0 auto;' ><span id='x' class='lowest_ff_change_class'>XX</span></td>\n" +
+            "            <td>-0.8% - -0.4%</td>" +
+            "            <td></td>" +
+            "        </tr>" +
+            "        <tr class=\"active-row\">\n" +
+            "            <td style='display: block; text-align: center; margin: 0 auto;' ><span id='x' class='second_lowest_ff_change_class'>XX</span></td>\n" +
+            "            <td>-0.4% - -0.08%</td>\n" +
+            "            <td></td>" +
+            "        </tr>" +
+            "        <tr class=\"active-row\">\n" +
+            "            <td style='display: block; text-align: center; margin: 0 auto;' ><span id='x' class='middle_ff_change_class'>XX</span></td>\n" +
+            "            <td>-0.08% - 0.05%</td>\n" +
+            "            <td></td>" +
+            "        </tr>" +
+            "        <tr class=\"active-row\">\n" +
+            "            <td style='display: block; text-align: center; margin: 0 auto;' ><span id='x' class='second_highest_ff_change_class'>XX</span></td>\n" +
+            "            <td>0.05% - 1.72%</td>\n" +
+            "            <td></td>" +
+            "        </tr>" +
+            "        <tr class=\"active-row\">\n" +
+            "            <td style='display: block; text-align: center; margin: 0 auto;' ><span id='x' class='highest_ff_change_class'>XX</span></td>\n" +
+            "            <td>1.72% - 3.58%</td>\n" +
+            "            <td></td>" +
+            "        </tr>" +
+            "        </tr>\n" +
+            "    </tbody>\n" +
+            "</table>"
+    }
 
 }
 
 window.onload = function () {
+    displayLegend('Forest Interior Change');
     displayLegend("Forest Fragmentation");
     LayerSwitcher.forEachRecursive(map, function (l, idx, a) {
         l.on("change:visible", function (e) {
-            const lyr = e.target;
             const lyrName = e.target.get('title');
             const lyrVisible = e.target.getVisible();
 
-            if (lyrVisible === true) {
+            console.log(lyrName);
+
+            if (lyrVisible === true && lyrName !== 'Forest Interior Change') {
                 document.getElementById("map-legend").innerHTML = "";
                 console.log(lyrName, lyrVisible);
                 displayLegend(lyrName);
+            } else if (lyrVisible === true && lyrName === 'Forest Interior Change') {
+                displayLegend(lyrName);
+            } else if (lyrVisible === false && lyrName === 'Forest Interior Change') {
+                document.getElementById("map-legend_right").innerHTML = "";
             }
         })
     })
