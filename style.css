@@ -122,154 +122,154 @@ body {
     width:10px;
     height: 10px;
     background-color: #d73027;
-    border: none;
+    border: solid #d73027 2px;
 }
 
 .transitional_square {
     width: 10px;
     height: 10px;
     background-color: #f88c5a;
-    border: none;
+    border: solid #f88c5a 2px;
 }
 
 .edge_square {
     width: 10px;
     height: 10px;
     background-color: #fce08b;
-    border: none;
+    border: solid #fce08b 2px;
 }
 
 .perforated_square {
     width: 10px;
     height: 10px;
     background-color: #d9ee8b;
-    border: none;
+    border: solid #d9ee8b 2px;
 }
 
 .interior_square {
     width: 10px;
     height: 10px;
     background-color: #25984f;
-    border: none;
+    border: solid #25984f 2px;
 }
 
 .undetermined_square {
     width: 10px;
     height: 10px;
     background-color: #91ce60;
-    border: none;
+    border: solid #91ce60 2px;
 }
 
 .open_water_square {
     width: 10px;
     height: 10px;
     background-color: #466b9f;
-    border: none;
+    border: solid #466b9f 2px;
 }
 
 .ice_snow_square {
     width: 10px;
     height: 10px;
     background-color: #d1def8;
-    border: none;
+    border: solid #d1def8 2px;
 }
 
 .dev_open_space_square {
     width: 10px;
     height: 10px;
     background-color: #dec5c5;
-    border: none;
+    border: solid #dec5c5 2px;
 }
 
 .dev_low_intensity_square {
     width: 10px;
     height: 10px;
     background-color: #d99282;
-    border: none;
+    border: solid #d99282 2px;
 }
 
 .dev_med_intensity_square {
     width: 10px;
     height: 10px;
     background-color: #eb0000;
-    border: none;
+    border: solid #eb0000 2px;
 }
 
 .dev_hi_intensity_square {
     width: 10px;
     height: 10px;
     background-color: #ab0000;
-    border: none;
+    border: solid #ab0000 2px;
 }
 
 .barren_land_square {
     width: 10px;
     height: 10px;
     background-color: #b3ac9f;
-    border: none;
+    border: solid #b3ac9f 2px;
 }
 
 .decid_forest_square {
     width: 10px;
     height: 10px;
     background-color: #68ab5f;
-    border: none;
+    border: solid #68ab5f 2px;
 }
 
 .evergreen_forest_square {
     width: 10px;
     height: 10px;
     background-color: #1c5f2c;
-    border: none;
+    border: solid #1c5f2c 2px;
 }
 
 .mix_forest_square {
     width: 10px;
     height: 10px;
     background-color: #b5c58f;
-    border: none;
+    border: solid #b5c58f 2px;
 }
 
 .shrub_scrub_square {
     width: 10px;
     height: 10px;
     background-color: #ccb879;
-    border: none;
+    border: solid #ccb879 2px;
 }
 
 .grass_herb_square {
     width: 10px;
     height: 10px;
     background-color: #dfdfc2;
-    border: none;
+    border: solid #dfdfc2 2px;
 }
 
 .pasture_hay_square {
     width: 10px;
     height: 10px;
     background-color: #dcd939;
-    border: none;
+    border: solid #dcd939 2px;
 }
 
 .crops_square {
     width: 10px;
     height: 10px;
     background-color: #ab6c28;
-    border: none;
+    border: solid #ab6c28 2px;
 }
 
 .woody_wetlands_square {
     width: 10px;
     height: 10px;
     background-color: #b8d9eb;
-    border: none;
+    border: solid #b8d9eb 2px;
 }
 
 .emer_herb_wetlands_square {
     width: 10px;
     height: 10px;
     background-color: #6c9fb8;
-    border: none;
+    border: solid #6c9fb8 2px;
 }
 
 .lowest_ff_change_class {
