@@ -102,7 +102,7 @@ function displayLegend(layer_name, addl_layer) {
         document.getElementById('map-legend').innerHTML =
             "<table class=\"styled-legend\">\n" +
             "    <thead>\n" +
-            "      <tr><th colspan='3' class='table-title'>Legend</th></tr>" +
+            "      <tr><th colspan='3' class='table-title'>Forest Frag. Index</th></tr>" +
             "        <tr>\n" +
             "            <th></th>\n" +
             "            <th></th>\n" +
@@ -141,7 +141,7 @@ function displayLegend(layer_name, addl_layer) {
         document.getElementById('map-legend').innerHTML =
             "<table class=\"styled-legend\">\n" +
             "    <thead>\n" +
-            "      <tr><th colspan='3' class='table-title'>Legend</th></tr>" +
+            "      <tr><th colspan='3' class='table-title'>Land Cover Type</th></tr>" +
             "        <tr>\n" +
             "            <th></th>\n" +
             "            <th></th>\n" +
@@ -235,6 +235,8 @@ function displayLegend(layer_name, addl_layer) {
         current_legend = current_legend.replace('</tr></tbody></table>', '');
         document.getElementById('map-legend').innerHTML = current_legend +
             "    <thead>\n" +
+            "      <tr><th colspan='3' class='table-title'>Frag. Change: 2001-2016</th></tr>" +
+            "        <tr>\n" +
             "            <th></th>\n" +
             "            <th></th>\n" +
             "            <th></th>\n" +
