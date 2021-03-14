@@ -40,7 +40,7 @@ const W3MosaicSource = new TileWMS({
 const InteriorChangeSource = new TileWMS({
     attributions: "| Robert Ross Wardrup | www.rwardrup.com",
     url: 'https://geo.spatstats.com/geoserver/CO_ForestFrag/wms',
-    params: {'LAYERS': 'CO_ForestFrag:ForestFragStats',
+    params: {'LAYERS': 'CO_ForestFrag:county_ff_change',
         'TILED': true,
         'VERSION': '1.3.0',
     }
@@ -235,27 +235,27 @@ function displayLegend(layer_name, addl_layer) {
         current_legend = current_legend.replace('</tr></tbody></table>', '');
         document.getElementById('map-legend').innerHTML = current_legend +
             "        <tr class=\"active-row\">\n" +
-            "            <td style='display: block; text-align: center; margin: 0 auto;' ><span id='x' class='lowest_ff_change_class'>XX</span></td>\n" +
+            "            <td><hr class='lowest_ff_change_class'</td>\n" +
             "            <td>-0.8% - -0.4% Change</td>" +
             "            <td></td>" +
             "        </tr>" +
             "        <tr class=\"active-row\">\n" +
-            "            <td style='display: block; text-align: center; margin: 0 auto;' ><span id='x' class='second_lowest_ff_change_class'>XX</span></td>\n" +
+            "            <td><hr class='second_lowest_ff_change_class'</td>\n" +
             "            <td>-0.4% - -0.08% Change</td>\n" +
             "            <td></td>" +
             "        </tr>" +
             "        <tr class=\"active-row\">\n" +
-            "            <td style='display: block; text-align: center; margin: 0 auto;' ><span id='x' class='middle_ff_change_class'>XX</span></td>\n" +
+            "            <td><hr class='middle_ff_change_class'</td>\n" +
             "            <td>-0.08% - 0.05% Change</td>\n" +
             "            <td></td>" +
             "        </tr>" +
             "        <tr class=\"active-row\">\n" +
-            "            <td style='display: block; text-align: center; margin: 0 auto;' ><span id='x' class='second_highest_ff_change_class'>XX</span></td>\n" +
+            "            <td><hr class='second_highest_ff_change_class'</td>\n" +
             "            <td>0.05% - 1.72% Change</td>\n" +
             "            <td></td>" +
             "        </tr>" +
             "        <tr class=\"active-row\">\n" +
-            "            <td style='display: block; text-align: center; margin: 0 auto;' ><span id='x' class='highest_ff_change_class'>XX</span></td>\n" +
+            "            <td><hr class='highest_ff_change_class'</td>\n" +
             "            <td>1.72% - 3.58% Change</td>\n" +
             "            <td></td>" +
             "        </tr>"
