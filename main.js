@@ -101,6 +101,36 @@ map.setView(new View({
 
 map.addControl(layerSwitcher);
 
+function toggle_time_slider(status) {
+    // Toggles the time slider
+
+    if (status === true) {
+        document.getElementById("slidercontainer").innerHTML =
+            "<input type=\"range\" min=\"0\" max=\"6\" class=\"slider\" id=\"yearRange\">";
+        const dates = ['2001-01-01T00:00:00.000Z', '2004-01-01T00:00:00.000Z', '2006-01-01T00:00:00.000Z',
+            '2008-01-01T00:00:00.000Z', '2011-01-01T00:00:00.000Z', '2013-01-01T00:00:00.000Z', '2016-01-01T00:00:00.000Z']
+        const sliderRange = document.getElementById('yearRange');
+        sliderRange.max = dates.length - 1;
+        sliderRange.value="6";
+
+        const dateValue = document.getElementById('date_value');
+        dateValue.innerHTML = dates[sliderRange.value].slice(0, 10).substring(0,4)
+        W3MosaicMap.getSource().updateParams({'TIME': dates[window.value]});
+        LCMosaicMap.getSource().updateParams({'TIME': dates[window.value]});
+
+        sliderRange.oninput = function () {
+            dateValue.innerHTML = dates[sliderRange.value].slice(0, 10).substring(0,4)
+            console.log(dates[this.value].slice(0, 10));
+            W3MosaicMap.getSource().updateParams({'TIME': dates[this.value]});
+            LCMosaicMap.getSource().updateParams({'TIME': dates[this.value]});
+        }
+    } else if (status === false) {
+        console.log("Disabling slider");
+        document.getElementById("slidercontainer").innerHTML = "";
+    }
+
+}
+
 function displayLegend(layer_name, addl_layer) {
     // Display legend depending on layer
     if (layer_name === "Forest Fragmentation") {
@@ -301,7 +331,12 @@ window.onload = function () {
 
             if (lyrVisible === true) {
                 displayLegend(lyrName);
-                console.log(lyrName);
+                if (lyrName === "Colorado Land Cover" || lyrName === "Forest Fragmentation") {
+                    toggle_time_slider(true);
+                } else {
+                    console.log("Disabling slider");
+                    toggle_time_slider(false);
+                }
             }
 
             /*
@@ -324,21 +359,4 @@ window.onload = function () {
              */
         })
     })
-    const dates = ['2001-01-01T00:00:00.000Z', '2004-01-01T00:00:00.000Z', '2006-01-01T00:00:00.000Z',
-        '2008-01-01T00:00:00.000Z', '2011-01-01T00:00:00.000Z', '2013-01-01T00:00:00.000Z', '2016-01-01T00:00:00.000Z']
-    const sliderRange = document.getElementById('yearRange');
-    sliderRange.max = dates.length - 1;
-    sliderRange.value="6";
-
-    const dateValue = document.getElementById('date_value');
-    dateValue.innerHTML = dates[sliderRange.value].slice(0, 10).substring(0,4)
-    W3MosaicMap.getSource().updateParams({'TIME': dates[this.value]});
-    LCMosaicMap.getSource().updateParams({'TIME': dates[this.value]});
-
-    sliderRange.oninput = function () {
-        dateValue.innerHTML = dates[sliderRange.value].slice(0, 10).substring(0,4)
-        console.log(dates[this.value].slice(0, 10));
-        W3MosaicMap.getSource().updateParams({'TIME': dates[this.value]});
-        LCMosaicMap.getSource().updateParams({'TIME': dates[this.value]});
-    }
 }
