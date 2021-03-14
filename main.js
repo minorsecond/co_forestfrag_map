@@ -68,8 +68,8 @@ const W3MosaicMap = new TileLayer({
 })
 
 const InteriorChangeMap = new TileLayer({
-    title: 'Forest Interior Change',
-    opacity: .75,
+    type: 'base',
+    title: 'Forest Interior Change by County',
     visible: true,
     source: InteriorChangeSource
 });
@@ -79,9 +79,14 @@ const LCMaps = new LayerGroup({
     layers: [LCMosaicMap, W3MosaicMap]
 })
 
+const ChangeMaps = new LayerGroup({
+    title: "Forest Fragmentation Change",
+    layers: [InteriorChangeMap]
+})
+
 const map = new Map({
     target: 'map',
-    layers: [OSMLayer, LCMaps, InteriorChangeMap],
+    layers: [OSMLayer, LCMaps, ChangeMaps],
     view: new View({
         center: [-11754222,4728294],
         zoom: 7,
@@ -230,10 +235,9 @@ function displayLegend(layer_name, addl_layer) {
             "            <td></td>" +
             "        </tr>"
     }
-    if (layer_name === "Forest Interior Change") {
-        let current_legend = document.getElementById('map-legend').innerHTML;
-        current_legend = current_legend.replace('</tr></tbody></table>', '');
-        document.getElementById('map-legend').innerHTML = current_legend +
+    if (layer_name === "Forest Interior Change by County") {
+        document.getElementById('map-legend').innerHTML =
+            "<table class=\"styled-legend\">\n" +
             "    <thead>\n" +
             "      <tr><th colspan='3' class='table-title'>Frag. Change: 2001-2016</th></tr>" +
             "        <tr>\n" +
@@ -279,10 +283,8 @@ function displayLegend(layer_name, addl_layer) {
 
 let current_basemap = 'Forest Fragmentation';
 window.onload = function () {
-    displayLegend(current_basemap, true);
-    displayLegend('Forest Interior Change', false);
+    displayLegend('Forest Interior Change by County', false);
     LayerSwitcher.forEachRecursive(map, function (l, idx, a) {
-        console.log(l)
         l.on("change:visible", function (e) {
             const lyrName = e.target.get('title');
             const lyrVisible = e.target.getVisible();
@@ -297,6 +299,12 @@ window.onload = function () {
                 }
             });
 
+            if (lyrVisible === true) {
+                displayLegend(lyrName);
+                console.log(lyrName);
+            }
+
+            /*
             if (lyrName !== 'Forest Interior Change' && lyrVisible) {
                 current_basemap = lyrName;
                 console.log("Current basemap is " + current_basemap);
@@ -313,6 +321,7 @@ window.onload = function () {
             } else if (lyrVisible === false && lyrName === 'Forest Interior Change') {
                 displayLegend(current_basemap, false);
             }
+             */
         })
     })
     const dates = ['2001-01-01T00:00:00.000Z', '2004-01-01T00:00:00.000Z', '2006-01-01T00:00:00.000Z',
