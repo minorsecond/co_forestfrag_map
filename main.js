@@ -372,8 +372,7 @@ function displayLegend(layer_name, addl_layer) {
 
 let current_basemap = 'Forest Fragmentation';
 window.onload = function () {
-
-    map.setLayer
+    document.getElementById('title_text').innerHTML = "<p>Colorado Forest Interior Change by County</p>";
     displayLegend('Forest Interior Change by County', false);
     LayerSwitcher.forEachRecursive(map, function (l, idx, a) {
         l.on("change:visible", function (e) {
@@ -393,10 +392,20 @@ window.onload = function () {
             if (lyrVisible === true) {
                 displayLegend(lyrName);
                 if (lyrName === "Colorado Land Cover" || lyrName === "Forest Fragmentation") {
+                    document.getElementById('title_text').innerHTML =
+                        "<p>Colorado Land Cover & Forest Fragmentation: <span id=\"date_value\"></span></p>";
                     toggle_time_slider(true);
                 } else {
                     console.log("Disabling slider");
                     toggle_time_slider(false);
+
+                    // Set title
+                    if (lyrName === 'Forest Interior Change by County') {
+                        document.getElementById('title_text').innerHTML = "<p>Colorado Forest Interior Change by County</p>";
+                    }
+                    else if (lyrName === 'Forest Interior Change by Hex Grid') {
+                        document.getElementById('title_text').innerHTML = "<p>Colorado Forest Interior Change by Hex Grid</p>";
+                    }
                 }
             }
 
