@@ -147,7 +147,7 @@ function toggle_time_slider(status) {
 
 }
 
-function displayLegend(layer_name, addl_layer) {
+function displayLegend(layer_name) {
     // Display legend depending on layer
     if (layer_name === "Forest Fragmentation") {
         document.getElementById('map-legend').innerHTML =
@@ -361,16 +361,8 @@ function displayLegend(layer_name, addl_layer) {
             "            <td></td>" +
             "        </tr>"
     }
-
-    if (addl_layer === false) {
-        document.getElementById('map-legend').innerHTML +=
-            "        </tr>\n" +
-            "    </tbody>\n" +
-            "</table>"
-    }
 }
 
-let current_basemap = 'Forest Fragmentation';
 window.onload = function () {
     document.getElementById('title_text').innerHTML = "<p>Colorado Forest Interior Change by County</p>";
     displayLegend('Forest Interior Change by County', false);
@@ -378,16 +370,6 @@ window.onload = function () {
         l.on("change:visible", function (e) {
             const lyrName = e.target.get('title');
             const lyrVisible = e.target.getVisible();
-            let co_fii_visible = true;
-
-            // See if county forest frag change layer is visible
-            LayerSwitcher.forEachRecursive(map, function (m) {
-                if (m.getVisible() && m.get('title') === "Forest Interior Change") {
-                    co_fii_visible = true;
-                } else {
-                    co_fii_visible = false;
-                }
-            });
 
             if (lyrVisible === true) {
                 displayLegend(lyrName);
@@ -408,25 +390,6 @@ window.onload = function () {
                     }
                 }
             }
-
-            /*
-            if (lyrName !== 'Forest Interior Change' && lyrVisible) {
-                current_basemap = lyrName;
-                console.log("Current basemap is " + current_basemap);
-            }
-
-            if (lyrVisible === true && lyrName !== 'Forest Interior Change') {
-                document.getElementById("map-legend").innerHTML = "";
-                displayLegend(lyrName, false);
-                if (co_fii_visible === true) {
-                    displayLegend("Forest Interior Change");
-                }
-            } else if (lyrVisible === true && lyrName === 'Forest Interior Change') {
-                displayLegend(lyrName);
-            } else if (lyrVisible === false && lyrName === 'Forest Interior Change') {
-                displayLegend(current_basemap, false);
-            }
-             */
         })
     })
 }
