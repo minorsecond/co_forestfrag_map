@@ -306,3 +306,45 @@ body {
     background-color: #008837;
     border: solid #388036 2px;
 }
+
+.hex_first_class {
+    width: 10px;
+    height: 10px;
+    background-color: #7b3294;
+    border: solid #232323 2px;
+}
+
+.hex_second_class {
+    width: 10px;
+    height: 10px;
+    background-color: #c2a5cf;
+    border: solid #232323 2px;
+}
+
+.hex_third_class {
+    width: 10px;
+    height: 10px;
+    background-color: #f7e9f0;
+    border: solid #232323 2px;
+}
+
+.hex_fourth_class {
+    width: 10px;
+    height: 10px;
+    background-color: #a6dba0;
+    border: solid #232323 2px;
+}
+
+.hex_fifth_change_class {
+    width: 10px;
+    height: 10px;
+    background-color: #46ae70;
+    border: solid #232323 2px;
+}
+
+.hex_sixth_class {
+    width: 10px;
+    height: 10px;
+    background-color: #008837;
+    border: solid #232323 2px;
+}

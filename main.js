@@ -37,10 +37,19 @@ const W3MosaicSource = new TileWMS({
     }
 })
 
-const InteriorChangeSource = new TileWMS({
+const CountyInteriorChangeSource = new TileWMS({
     attributions: "| Robert Ross Wardrup | www.rwardrup.com",
     url: 'https://geo.spatstats.com/geoserver/CO_ForestFrag/wms',
     params: {'LAYERS': 'CO_ForestFrag:county_ff_change',
+        'TILED': true,
+        'VERSION': '1.3.0',
+    }
+})
+
+const HexInteriorChangeSource = new TileWMS({
+    attributions: "| Robert Ross Wardrup | www.rwardrup.com",
+    url: 'https://geo.spatstats.com/geoserver/CO_ForestFrag/wms',
+    params: {'LAYERS': 'CO_ForestFrag:hex_ff_change',
         'TILED': true,
         'VERSION': '1.3.0',
     }
@@ -67,11 +76,18 @@ const W3MosaicMap = new TileLayer({
     source: W3MosaicSource,
 })
 
-const InteriorChangeMap = new TileLayer({
+const CountyInteriorChangeMap = new TileLayer({
     type: 'base',
     title: 'Forest Interior Change by County',
     visible: true,
-    source: InteriorChangeSource
+    source: CountyInteriorChangeSource
+});
+
+const HexInteriorChangeMap = new TileLayer({
+    type: 'base',
+    title: 'Forest Interior Change by Hex Grid',
+    visible: false,
+    source: HexInteriorChangeSource
 });
 
 const LCMaps = new LayerGroup({
@@ -81,7 +97,7 @@ const LCMaps = new LayerGroup({
 
 const ChangeMaps = new LayerGroup({
     title: "Forest Fragmentation Change",
-    layers: [InteriorChangeMap]
+    layers: [CountyInteriorChangeMap, HexInteriorChangeMap]
 })
 
 const map = new Map({
@@ -303,6 +319,49 @@ function displayLegend(layer_name, addl_layer) {
             "        </tr>"
     }
 
+    if (layer_name === "Forest Interior Change by Hex Grid") {
+        document.getElementById('map-legend').innerHTML =
+            "<table class=\"styled-legend\">\n" +
+            "    <thead>\n" +
+            "      <tr><th colspan='3' class='table-title'>Frag. Change: 2001-2016</th></tr>" +
+            "        <tr>\n" +
+            "            <th></th>\n" +
+            "            <th></th>\n" +
+            "            <th></th>\n" +
+            "        </tr>" +
+            "    </thead>\n" +
+            "        <tr class=\"active-row\">\n" +
+            "            <td><hr class='hex_first_class'</td>\n" +
+            "            <td>-1.0% - -0.06% Change</td>" +
+            "            <td></td>" +
+            "        </tr>" +
+            "        <tr class=\"active-row\">\n" +
+            "            <td><hr class='hex_second_class'</td>\n" +
+            "            <td>-0.06% - -0.01% Change</td>\n" +
+            "            <td></td>" +
+            "        </tr>" +
+            "        <tr class=\"active-row\">\n" +
+            "            <td><hr class='hex_third_class'</td>\n" +
+            "            <td>-0.01% - 0.00% Change</td>\n" +
+            "            <td></td>" +
+            "        </tr>" +
+            "        <tr class=\"active-row\">\n" +
+            "            <td><hr class='hex_fourth_class'</td>\n" +
+            "            <td>0.00% Change</td>\n" +
+            "            <td></td>" +
+            "        </tr>" +
+            "        <tr class=\"active-row\">\n" +
+            "            <td><hr class='hex_fifth_change_class'</td>\n" +
+            "            <td>0.00% - 0.5% Change</td>\n" +
+            "            <td></td>" +
+            "        </tr>" +
+            "        <tr class=\"active-row\">\n" +
+            "            <td><hr class='hex_sixth_class'</td>\n" +
+            "            <td>0.5% - ∞% Change</td>\n" +
+            "            <td></td>" +
+            "        </tr>"
+    }
+
     if (addl_layer === false) {
         document.getElementById('map-legend').innerHTML +=
             "        </tr>\n" +
@@ -313,6 +372,8 @@ function displayLegend(layer_name, addl_layer) {
 
 let current_basemap = 'Forest Fragmentation';
 window.onload = function () {
+
+    map.setLayer
     displayLegend('Forest Interior Change by County', false);
     LayerSwitcher.forEachRecursive(map, function (l, idx, a) {
         l.on("change:visible", function (e) {
