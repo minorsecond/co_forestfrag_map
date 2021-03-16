@@ -383,10 +383,12 @@ window.onload = function () {
 
                     // Set title
                     if (lyrName === 'Forest Interior Change by County') {
-                        document.getElementById('title_text').innerHTML = "<p>Colorado Forest Interior Change by County</p>";
+                        document.getElementById('title_text').innerHTML =
+                            "<p>Colorado Forest Interior Change by County</p>";
                     }
                     else if (lyrName === 'Forest Interior Change by Hex Grid') {
-                        document.getElementById('title_text').innerHTML = "<p>Colorado Forest Interior Change by Hex Grid</p>";
+                        document.getElementById('title_text').innerHTML =
+                            "<p>Colorado Forest Interior Change by Hex Grid</p>";
                     }
                 }
             }
